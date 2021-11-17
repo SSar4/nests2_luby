@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { MailerModule } from '@nestjs-modules/mailer';
 import { mailerConfig } from './configs/mailer.config';
+import { GamesModule } from './games/games.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { mailerConfig } from './configs/mailer.config';
     MailerModule.forRoot(mailerConfig),
     UsersModule,
     AuthModule,
+    GamesModule,
   ],
   controllers: [],
   providers: [],
