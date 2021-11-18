@@ -7,8 +7,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Bet } from 'src/bet/bet.entity';
 
 @Entity()
 @Unique(['email'])
@@ -45,6 +48,10 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Bet, (bet) => bet.user, { cascade: true })
+  @JoinColumn()
+  bets: Bet[];
 
   //método responsável por conferir a senha de um usuário
   async checkPassword(password: string): Promise<boolean> {

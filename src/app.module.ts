@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { mailerConfig } from './configs/mailer.config';
 import { GamesModule } from './games/games.module';
+import { BetModule } from './bet/bet.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { GamesModule } from './games/games.module';
     UsersModule,
     AuthModule,
     GamesModule,
+    BetModule,
   ],
   controllers: [],
   providers: [],
