@@ -1,7 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateGamerDto } from './dto/create-game.dto';
+import { UpdateGamerDto } from './dto/update-game.dto';
 //import { UpdateGamerDto } from './dto/update-game.dto';
 import { Gamer } from './game.entity';
 import { GamerRepository } from './game.repository';
@@ -39,5 +44,23 @@ export class GamerService {
   async createGame(createGameDto: CreateGamerDto): Promise<Gamer> {
     const game = await this.gameRepository.createGame(createGameDto);
     return game;
+  }
+
+  async updateGame(updateGamerDto: UpdateGamerDto, id: string): Promise<Gamer> {
+    const { type, description, max_number, price, range } = updateGamerDto;
+    const game = await this.findGameById(id);
+    game.type = type ? type : game.type;
+    game.description = description ? description : game.description;
+    game.max_number = max_number ? max_number : game.max_number;
+    game.price = price ? price : game.price;
+    game.range = range ? range : range;
+    try {
+      await game.save();
+      return game;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Erro ao salvar os dados no banco de dados',
+      );
+    }
   }
 }

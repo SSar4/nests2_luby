@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
   ValidationPipe,
@@ -14,8 +15,10 @@ import { Role } from 'src/auth/role.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { UserRole } from 'src/users/user-roles.enum';
 import { CreateGamerDto } from './dto/create-game.dto';
+import { UpdateGamerDto } from './dto/update-game.dto';
 import { Gamer } from './game.entity';
 import { GamerService } from './game.service';
+//import { UpdateGamerDto } from './dto/update-game.dto';
 
 @Controller('gamer')
 @UseGuards(AuthGuard(), RolesGuard)
@@ -49,5 +52,14 @@ export class GamerController {
     return {
       message: 'Game removido com sucesso',
     };
+  }
+
+  @Patch(':id')
+  @Role(UserRole.ADMIN)
+  async updateUser(
+    @Body(ValidationPipe) updateGameDto: UpdateGamerDto,
+    @Param('id') id: string,
+  ) {
+    return this.gamerService.updateGame(updateGameDto, id);
   }
 }
