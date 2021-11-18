@@ -1,23 +1,25 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsInt, IsNumber } from 'class-validator';
-export class CreateGamerDto {
-  @IsNotEmpty({
-    message: 'Informe o nome do jogo',
+import { IsInt, IsDecimal, IsOptional, IsString } from 'class-validator';
+export class UpdateGamerDto {
+  @IsOptional()
+  @IsString({
+    message: 'Informe um tipo válido',
   })
   type: string;
-  @IsNotEmpty({
-    message: 'Informe uma descrição para o jogo',
+  @IsOptional()
+  @IsString({
+    message: 'Informe uma descrição válida',
   })
   description: string;
-  @IsNotEmpty({
-    message: 'O range não pode ser vazio',
-  })
+  @IsOptional()
   @IsInt({
     message: 'O range de jogo deve ser um numero inteiro',
   })
   range: number;
-  @IsNumber()
+  @IsOptional()
+  @IsDecimal()
   price: number;
+  @IsOptional()
   @IsInt({
     message: 'O valor maximo de numeros precisa ser um inteiro',
   })

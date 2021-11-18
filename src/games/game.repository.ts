@@ -26,10 +26,10 @@ export class GamerRepository extends Repository<Gamer> {
       return game;
     } catch (error) {
       if (error.code.toString() === '23505') {
-        throw new ConflictException('Endereço de email já está em uso');
+        throw new ConflictException('game já está em uso');
       } else {
         throw new InternalServerErrorException(
-          'Erro ao salvar o usuário no banco de dados',
+          'Erro ao salvar o game no banco de dados',
         );
       }
     }

@@ -2,7 +2,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UseGuards,
   ValidationPipe,
@@ -32,5 +34,20 @@ export class GamerController {
   ): Promise<Gamer> {
     const gamer = await this.gamerService.createGame(createGameDto);
     return gamer;
+  }
+
+  @Get(':id')
+  async getGameId(@Param('id') id: string): Promise<Gamer> {
+    const game = await this.gamerService.findGameById(id);
+    return game;
+  }
+
+  @Delete(':id')
+  @Role(UserRole.ADMIN)
+  async deleteGame(@Param('id') id: string) {
+    await this.gamerService.deleteGamer(id);
+    return {
+      message: 'Game removido com sucesso',
+    };
   }
 }

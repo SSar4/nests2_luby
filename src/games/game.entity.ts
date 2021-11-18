@@ -27,7 +27,7 @@ export class Gamer extends BaseEntity {
   @Column({ nullable: false, type: 'integer' })
   range: number;
 
-  @Column({ nullable: false, type: 'integer' })
+  @Column({ nullable: false, type: 'decimal' })
   price: number;
 
   @Column({ nullable: false, type: 'integer' })
