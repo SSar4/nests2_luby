@@ -11,9 +11,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
 import { Role } from 'src/auth/role.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { UserRole } from 'src/users/user-roles.enum';
+import { User } from 'src/users/user.entity';
 import { CreateGamerDto } from './dto/create-game.dto';
 import { UpdateGamerDto } from './dto/update-game.dto';
 import { Gamer } from './game.entity';
@@ -55,9 +57,9 @@ export class GamerController {
   }
 
   @Patch(':id')
-  @Role(UserRole.ADMIN)
   async updateUser(
     @Body(ValidationPipe) updateGameDto: UpdateGamerDto,
+    @GetUser() user: User,
     @Param('id') id: string,
   ) {
     return this.gamerService.updateGame(updateGameDto, id);
