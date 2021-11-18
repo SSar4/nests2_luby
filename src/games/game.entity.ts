@@ -7,10 +7,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
-  ManyToOne,
+  //JoinColumn,
+  //OneToMany,
 } from 'typeorm';
-import { User } from '../users/user.entity';
+//import { User } from '../users/user.entity';
 
 @Entity()
 @Unique(['type'])
@@ -33,9 +33,9 @@ export class Gamer extends BaseEntity {
   @Column({ nullable: false, type: 'integer' })
   max_number: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn()
-  public admin: User;
+  //@OneToMany(() => User, (user) => user.id, { cascade: true })
+  //@JoinColumn()
+  //admin: User;
 
   @CreateDateColumn()
   createdAt: Date;
