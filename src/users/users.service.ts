@@ -12,11 +12,13 @@ import { User } from './user.entity';
 import { UserRole } from './user-roles.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindUsersQueryDto } from './dto/find-users-query.dto';
+import { BetService } from 'src/bet/bet.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserRepository)
+    private betRepository: BetService,
     private userRepository: UserRepository,
   ) {}
 
